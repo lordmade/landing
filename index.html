@@ -11,44 +11,37 @@
   <style>
     :root {
       --bg: #000814;
-      --deep: #001d3d;
       --accent: #00f5ff;
       --accent-2: #ff2a6d;
       --glow-cyan: 0 0 80px rgba(0,245,255,0.6);
-      --glow-pink: 0 0 80px rgba(255,42,109,0.6);
       --text: #e0f2fe;
-      --card-bg: rgba(0, 20, 40, 0.5);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg);
+      background: #000;
       color: var(--text);
       overflow-x: hidden;
-      cursor: none !important; /* Force hide default cursor */
+      cursor: none !important;
     }
     canvas { position:fixed; top:0; left:0; z-index:1; }
 
-    /* GALACTIC CURSOR — NOW 100% VISIBLE */
+    /* Galactic Cursor */
     #custom-cursor {
       position: fixed;
-      width: 28px;
-      height: 28px;
+      width: 28px; height: 28px;
       border: 2px solid var(--accent);
       border-radius: 50%;
       pointer-events: none;
       z-index: 99999;
-      left: 0;
-      top: 0;
+      left: 0; top: 0;
       transform: translate(-50%, -50%);
       background: radial-gradient(circle, rgba(0,245,255,0.4) 0%, transparent 70%);
       box-shadow: var(--glow-cyan);
-      transition: transform 0.08s ease, width 0.3s, height 0.3s;
-      opacity: 1 !important;
+      transition: all 0.08s ease;
     }
     #custom-cursor::after {
-      content: '';
-      position: absolute;
+      content: ''; position: absolute;
       top: 50%; left: 50%;
       width: 8px; height: 8px;
       background: var(--accent);
@@ -56,51 +49,89 @@
       transform: translate(-50%, -50%);
       box-shadow: 0 0 20px var(--accent);
     }
-    #custom-cursor.hover {
-      width: 50px;
-      height: 50px;
-      background: rgba(0,245,255,0.2);
+
+    /* HERO + FLOATING COSMIC CODE */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at center, rgba(0,245,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
     }
 
-    /* Rest of your galactic styles... */
-    .hero { height:100vh; display:flex; align-items:center; justify-content:center; position:relative; z-index:2; text-align:center; padding:0 20px; }
+    /* Floating Cosmic Code */
+    .code-rain {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .code-char {
+      position: absolute;
+      color: var(--accent);
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      font-weight: bold;
+      opacity: 0;
+      text-shadow: 0 0 20px var(--accent);
+      user-select: none;
+    }
+
     .hero h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(4.5rem, 14vw, 14rem);
+      font-size: clamp(5rem, 16vw, 15rem);
       font-weight: 900;
       line-height: 0.9;
-      background: linear-gradient(135deg, #00f5ff, #8a2be2, #ff2a6d);
+      background: linear-gradient(135deg, #00f5ff, #8a2be2, #ff2a6d, #00f5ff);
       background-size: 400%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: cosmicFlow 10s ease infinite;
+      animation: cosmicFlow 12s ease infinite;
+      position: relative;
+      z-index: 3;
     }
     @keyframes cosmicFlow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
     .hero .subtitle {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 300;
-      margin: 30px 0 60px;
+      margin: 30px 0 70px;
       opacity: 0.9;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
+      position: relative;
+      z-index: 3;
     }
 
     .cta {
       background: linear-gradient(135deg, var(--accent), #8a2be2);
       color: white;
-      padding: 20px 70px;
+      padding: 24px 80px;
       border: none;
-      border-radius: 70px;
-      font-size: 1.6rem;
+      border-radius: 80px;
+      font-size: 1.8rem;
       font-weight: 800;
       font-family: 'Orbitron', sans-serif;
       cursor: pointer;
       box-shadow: var(--glow-cyan);
       transition: all 0.5s;
+      position: relative;
+      z-index: 3;
     }
-    .cta:hover { transform: scale(1.12); box-shadow: 0 0 120px rgba(0,245,255,0.9); }
+    .cta:hover { transform: scale(1.15); box-shadow: 0 0 150px rgba(0,245,255,0.9); }
 
+    /* Rest of sections unchanged */
     .section { padding: 180px 20px; position: relative; z-index: 2; }
     .container { max-width: 1400px; margin: 0 auto; }
     .section-title {
@@ -114,14 +145,9 @@
       -webkit-text-fill-color: transparent;
       font-weight: 900;
     }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 40px;
-    }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
     .card {
-      background: var(--card-bg);
+      background: rgba(0,20,40,0.5);
       padding: 40px;
       border-radius: 24px;
       text-align: center;
@@ -129,26 +155,12 @@
       border: 1px solid rgba(0,245,255,0.2);
       transition: all 0.6s;
     }
-    .card:hover {
-      transform: translateY(-20px);
-      box-shadow: var(--glow-cyan);
-      border-color: var(--accent);
-    }
-    .card-icon {
-      font-size: 4.5rem;
-      margin-bottom: 20px;
-      background: linear-gradient(135deg, var(--accent), #8a2be2);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    .card:hover { transform: translateY(-20px); box-shadow: var(--glow-cyan); }
+    .card-icon { font-size: 4.5rem; margin-bottom: 20px; background: linear-gradient(135deg, var(--accent), #8a2be2); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
     .card h3 { font-size: 1.6rem; margin-bottom: 16px; font-weight: 700; }
     .card p { font-size: 1.1rem; opacity: 0.9; line-height: 1.7; }
 
-    .final-cta {
-      padding: 250px 20px;
-      text-align: center;
-    }
+    .final-cta { padding: 250px 20px; text-align: center; }
     .final-cta h2 {
       font-family: 'Orbitron', sans-serif;
       font-size: 6.5rem;
@@ -163,13 +175,15 @@
 </head>
 <body>
 
-  <!-- FIXED GLOWING CURSOR -->
+  <!-- Cursor -->
   <div id="custom-cursor"></div>
 
+  <!-- Three.js Background -->
   <canvas id="bg"></canvas>
 
-  <!-- HERO -->
+  <!-- HERO + COSMIC CODE RAIN -->
   <section class="hero">
+    <div class="code-rain" id="code-rain"></div>
     <div>
       <h1>VYNIX AI</h1>
       <p class="subtitle">Universal Intelligence • Powered by Grok</p>
@@ -177,65 +191,19 @@
     </div>
   </section>
 
-  <!-- Section 1: Core Features -->
+  <!-- Features (same as before) -->
   <section class="section">
     <div class="container">
       <h2 class="section-title">COSMIC INTELLIGENCE</h2>
       <div class="card-grid">
-        <div class="card">
-          <div class="card-icon">smart_toy</div>
-          <h3>Grok-4 Brain</h3>
-          <p>The most powerful reasoning engine ever built by xAI.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">auto_awesome</div>
-          <h3>Infinite Creation</h3>
-          <p>Generate unlimited images, art, and visions instantly.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">record_voice_over</div>
-          <h3>Neural Voice</h3>
-          <p>Speak naturally — Vynix listens and responds like a conscious being.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">verified</div>
-          <h3>Verified Unlimited</h3>
-          <p>Verified users get infinite tokens and priority access.</p>
-        </div>
+        <div class="card"><div class="card-icon">smart_toy</div><h3>Grok-4 Brain</h3><p>The most powerful reasoning engine ever built by xAI.</p></div>
+        <div class="card"><div class="card-icon">auto_awesome</div><h3>Infinite Creation</h3><p>Generate unlimited images, art, and visions instantly.</p></div>
+        <div class="card"><div class="card-icon">record_voice_over</div><h3>Neural Voice</h3><p>Speak naturally — Vynix listens and responds like a conscious being.</p></div>
+        <div class="card"><div class="card-icon">verified</div><h3>Verified Unlimited</h3><p>Verified users get infinite tokens and priority access.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Technology -->
-  <section class="section" style="background: linear-gradient(to bottom, var(--deep), var(--bg));">
-    <div class="container">
-      <h2 class="section-title">BUILT ON THE FUTURE</h2>
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-icon">hub</div>
-          <h3>xAI Grok API</h3>
-          <p>Direct access to frontier intelligence.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">cloud_queue</div>
-          <h3>Firebase Core</h3>
-          <p>Real-time, secure, global.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">offline_bolt</div>
-          <h3>Instant Response</h3>
-          <p>Sub-100ms latency worldwide.</p>
-        </div>
-        <div class="card">
-          <div class="card-icon">security</div>
-          <h3>Privacy First</h3>
-          <p>Your data never trains models.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
   <section class="final-cta">
     <h2>THE FUTURE IS NOW</h2>
     <button class="cta" onclick="location.href='app.html'">ENTER VYNIX AI</button>
@@ -245,26 +213,17 @@
     import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js";
     import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js";
     import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js";
-    import { EffectComposer } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/postprocessing/EffectComposer.js";
-    import { RenderPass } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/postprocessing/RenderPass.js";
-    import { UnrealBloomPass } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/postprocessing/UnrealBloomPass.js";
+    import { EffectComposer, RenderPass, UnrealBloomPass } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/postprocessing/EffectComposer.js";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // FIXED: Cursor now 100% visible and smooth
-    const cursor = document.getElementById('custom-cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+    // Cursor
+    document.addEventListener('mousemove', e => {
+      document.getElementById('custom-cursor').style.left = e.clientX + 'px';
+      document.getElementById('custom-cursor').style.top = e.clientY + 'px';
     });
 
-    // Hover effect on clickable elements
-    document.querySelectorAll('button, a, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-
-    // Three.js background (unchanged)
+    // Three.js Background (unchanged)
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true, antialias: true });
@@ -273,8 +232,7 @@
 
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.8, 0.6, 0.8);
-    composer.addPass(bloom);
+    composer.addPass(new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.8, 0.6, 0.8));
 
     const core = new THREE.Mesh(
       new THREE.TorusKnotGeometry(7, 2.5, 128, 16),
@@ -315,21 +273,45 @@
       composer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // GSAP Animations
+    // COSMIC CODE RAIN
+    const codeRain = document.getElementById('code-rain');
+    const symbols = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+    const columns = Math.floor(window.innerWidth / 30);
+    const drops = [];
+
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.random() * -100;
+    }
+
+    function drawCode() {
+      codeRain.innerHTML = '';
+      const fontSize = 20;
+      for (let i = 0; i < columns; i++) {
+        const char = symbols[Math.floor(Math.random() * symbols.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        const span = document.createElement('div');
+        span.textContent = char;
+        span.className = 'code-char';
+        span.style.left = x + 'px';
+        span.style.top = y + 'px';
+        span.style.opacity = drops[i] > 0 ? Math.random() : 0;
+        codeRain.appendChild(span);
+
+        drops[i]++;
+        if (drops[i] * fontSize > window.innerHeight && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+      }
+    }
+
+    setInterval(drawCode, 80);
+
+    // GSAP
     gsap.from(".hero h1", { y: 300, opacity: 0, duration: 2.5, ease: "power4.out" });
     gsap.from(".subtitle", { opacity: 0, duration: 2, delay: 1.5 });
     gsap.from(".cta", { scale: 0, opacity: 0, duration: 2, delay: 2.5, ease: "elastic.out(1,0.4)" });
-
-    gsap.utils.toArray(".card").forEach((card, i) => {
-      gsap.from(card, {
-        y: 200,
-        opacity: 0,
-        duration: 1.5,
-        delay: i * 0.15,
-        ease: "power3.out",
-        scrollTrigger: { trigger: card, start: "top 85%" }
-      });
-    });
   </script>
 </body>
 </html>
