@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Vynix AI – Chat, Create, Speak</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #ffffff;
+      --accent: #ff2a6d;
+      --accent-2: #8a2be2;
+      --card: rgba(255,255,255,0.05);
+      --glow: 0 0 40px rgba(255,42,109,0.4);
+      --glow-purple: 0 0 40px rgba(138,43,226,0.4);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: var(--bg); 
+      color: var(--text); 
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    canvas { position:fixed; top:0; left:0; z-index:1; pointer-events:none; }
+    
+    /* Hero */
+    .hero {
+      height:100vh; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      position:relative; 
+      z-index:2;
+      text-align:center;
+      padding:0 20px;
+    }
+    .hero h1 {
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight:900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom:20px;
+      line-height:1;
+    }
+    .hero p {
+      font-size:1.5rem;
+      max-width:900px;
+      margin:30px auto 50px;
+      opacity:0.9;
+      line-height:1.7;
+      font-weight:300;
+    }
+    .cta {
+      background: var(--accent);
+      color:white;
+      padding:20px 50px;
+      border:none;
+      border-radius:60px;
+      font-size:1.3rem;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow: var(--glow);
+      transition:all .4s;
+      letter-spacing:1px;
+    }
+    .cta:hover { 
+      transform:scale(1.08); 
+      box-shadow:0 0 60px rgba(255,42,109,0.7);
+    }
+
+    /* Features */
+    .features {
+      padding:180px 20px 100px;
+      background: linear-gradient(to bottom, #0a0a0a, #1a0033);
+      position:relative;
+      z-index:2;
+    }
+    .container { max-width:1200px; margin:0 auto; }
+    .section-title {
+      text-align:center;
+      font-size:4rem;
+      margin-bottom:100px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight:800;
+    }
+    .feature-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+      gap:50px;
+    }
+    .feature-card {
+      background:var(--card);
+      padding:50px 30px;
+      border-radius:24px;
+      text-align:center;
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(255,255,255,0.08);
+      transition:all .5s;
+      position:relative;
+      overflow:hidden;
+    }
+    .feature-card::before {
+      content:'';
+      position:absolute;
+      top:0; left:0; right:0; bottom:0;
+      background: linear-gradient(135deg, rgba(255,42,109,0.1), rgba(138,43,226,0.1));
+      opacity:0;
+      transition:opacity .5s;
+    }
+    .feature-card:hover::before { opacity:1; }
+    .feature-card:hover {
+      transform:translateY(-25px);
+      box-shadow:var(--glow);
+    }
+    .feature-icon {
+      font-size:5rem;
+      margin-bottom:25px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .feature-card h3 { font-size:1.8rem; margin-bottom:16px; }
+    .feature-card p { opacity:0.8; line-height:1.7; }
+
+    /* Final CTA */
+    .final-cta {
+      padding:180px 20px;
+      text-align:center;
+      background: linear-gradient(to bottom, #1a0033, var(--bg));
+    }
+    .final-cta h2 {
+      font-size:4.5rem;
+      margin-bottom:40px;
+      background: linear-gradient(135deg, var(--accent), #00d4ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <section class="hero">
+    <div>
+      <h1>Vynix AI</h1>
+      <p class="typing"></p>
+      <br><br>
+      <button class="cta" onclick="location.href='app.html'">Start Creating Free</button>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">One AI. All You Need.</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">chat_bubble</div>
+          <h3>Smart Chat</h3>
+          <p>Ask anything — get instant, honest, uncensored answers powered by Grok 4.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">auto_awesome</div>
+          <h3>Generate Images</h3>
+          <p>Turn words into stunning AI art — unlimited for verified users.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">mic</div>
+          <h3>Voice to Voice</h3>
+          <p>Talk naturally. Vynix listens, understands, and speaks back — like magic.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2>Join thousands already creating with Vynix AI</h2>
+    <button class="cta" onclick="location.href='app.html'">Get Started Now – It's Free</button>
+  </section>
+
+  <!-- All via ESM imports (no npm needed) -->
+  <script type="module">
+    import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js";
+    import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js";
+    import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Three.js Floating Orb Background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    const geometry = new THREE.IcosahedronGeometry(8, 1);
+    const material = new THREE.MeshBasicMaterial({
+      color: 0xff2a6d,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.15
+    });
+    const orb = new THREE.Mesh(geometry, material);
+    scene.add(orb);
+
+    const light = new THREE.PointLight(0xff2a6d, 2);
+    light.position.set(10, 10, 10);
+    scene.add(light);
+
+    camera.position.z = 20;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      orb.rotation.x += 0.003;
+      orb.rotation.y += 0.005;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // GSAP Animations
+    gsap.from(".hero h1", { y: 120, opacity: 0, duration: 1.8, ease: "power4.out" });
+    gsap.from(".cta", { scale: 0.7, opacity: 0, duration: 1.5, delay: 1.2, ease: "elastic.out(1,0.5)" });
+
+    gsap.utils.toArray(".feature-card").forEach((card, i) => {
+      gsap.from(card, {
+        y: 150,
+        opacity: 0,
+        duration: 1.2,
+        delay: i * 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    // Typing Effect
+    const text = "Chat • Create • Speak to the future of AI — powered by Grok";
+    const typingEl = document.querySelector('.typing');
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        typingEl.innerHTML += text.charAt(i) === '•' ? '<span style="color:var(--accent)"> • </span>' : text.charAt(i);
+        i++;
+        setTimeout(type, 60);
+      }
+    }
+    setTimeout(type, 1500);
+  </script>
+</body>
+</html>
