@@ -5,194 +5,225 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Vynix AI – The Future Is Here</title>
+  <title>Vynix AI – The Future Is Now</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     :root {
-      --bg: #000000;
+      --bg: #000;
       --accent: #ff2a6d;
       --accent-2: #8a2be2;
-      --glow-pink: 0 0 60px rgba(255,42,109,0.6);
-      --glow-purple: 0 0 60px rgba(138,43,226,0.6);
+      --glow-pink: 0 0 80px rgba(255,42,109,0.6);
+      --glow-purple: 0 0 80px rgba(138,43,226,0.6);
+      --text: #ffffff;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { 
       font-family: 'Inter', sans-serif; 
       background: #000; 
-      color: #fff; 
+      color: var(--text); 
       overflow-x: hidden;
       cursor: none;
     }
     canvas { position:fixed; top:0; left:0; z-index:1; }
+
+    /* Custom Cursor */
     .cursor {
       position: fixed;
-      width: 20px; height: 20px;
-      background: rgba(255,42,109,0.4);
+      width: 30px; height: 30px;
       border: 2px solid var(--accent);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      backdrop-filter: blur(4px);
-      transition: transform 0.1s;
+      background: rgba(255,42,109,0.1);
+      backdrop-filter: blur(8px);
+      transition: all 0.1s ease;
+    }
+    .cursor::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .cursor.trail {
+      width: 60px; height: 60px;
+      background: transparent;
+      border: 1px solid rgba(255,42,109,0.3);
+      opacity: 0;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
     }
 
+    /* Hero Section */
     .hero {
-      height:100vh; 
-      display:flex; 
-      align-items:center; 
-      justify-content:center; 
-      position:relative; 
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
       z-index:2;
       text-align:center;
       padding:0 20px;
     }
+    .hero-content {
+      max-width:1200px;
+    }
     .hero h1 {
-      font-size: clamp(4rem, 12vw, 10rem);
+      font-size: clamp(5rem, 15vw, 12rem);
       font-weight:900;
-      background: linear-gradient(135deg, #ff2a6d, #8a2be2, #00d4ff);
+      line-height:0.9;
+      margin-bottom:30px;
+      background: linear-gradient(135deg, #ff2a6d, #8a2be2, #00d4ff, #ff2a6d);
+      background-size: 300%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom:20px;
-      line-height:0.9;
-      text-shadow: 0 0 80px rgba(255,42,109,0.5);
+      animation: gradient 8s ease infinite;
+      text-shadow: 0 0 100px rgba(255,42,109,0.5);
+    }
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     .hero p {
-      font-size:1.8rem;
+      font-size:2rem;
+      font-weight:300;
       max-width:900px;
       margin:40px auto 60px;
-      opacity:0.9;
-      line-height:1.7;
-      font-weight:300;
+      opacity:0.95;
+      line-height:1.6;
     }
     .cta {
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color:white;
-      padding:22px 60px;
+      padding:24px 70px;
       border:none;
-      border-radius:60px;
-      font-size:1.5rem;
+      border-radius:70px;
+      font-size:1.8rem;
       font-weight:800;
       cursor:pointer;
       box-shadow: var(--glow-pink);
-      transition:all .4s;
-      letter-spacing:1px;
+      transition:all .5s;
+      letter-spacing:2px;
       position:relative;
       overflow:hidden;
     }
-    .cta::before {
-      content:''; position:absolute; top:0; left:-100%;
-      width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: all 0.7s;
+    .cta:hover {
+      transform:scale(1.12);
+      box-shadow:0 0 120px rgba(255,42,109,0.9);
     }
-    .cta:hover::before { left:100%; }
-    .cta:hover { transform:scale(1.1); box-shadow:0 0 80px rgba(255,42,109,0.8); }
 
-    .features { padding:200px 20px 150px; position:relative; z-index:2; }
-    .container { max-width:1300px; margin:0 auto; }
+    /* Feature Cards */
+    .features {
+      padding:200px 20px;
+      position:relative;
+      z-index:2;
+    }
+    .container { max-width:1400px; margin:0 auto; }
     .section-title {
       text-align:center;
-      font-size:5rem;
-      margin-bottom:120px;
+      font-size:6rem;
+      margin-bottom:140px;
       background: linear-gradient(135deg, #ff2a6d, #8a2be2, #00d4ff);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight:900;
-      text-shadow: 0 0 60px rgba(255,42,109,0.4);
     }
     .feature-grid {
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px,1fr));
-      gap:60px;
+      grid-template-columns: repeat(auto-fit, minmax(380px,1fr));
+      gap:70px;
     }
     .feature-card {
       background: rgba(255,255,255,0.03);
-      padding:60px 40px;
-      border-radius:30px;
+      padding:70px 50px;
+      border-radius:40px;
       text-align:center;
       backdrop-filter:blur(20px);
-      border:1px solid rgba(255,255,255,0.1);
-      transition:all .6s;
+      border:2px solid rgba(255,255,255,0.08);
+      transition:all .8s;
       position:relative;
       overflow:hidden;
     }
     .feature-card::before {
-      content:''; position:absolute; top:0; left:0; right:0; bottom:0;
-      background: linear-gradient(135deg, rgba(255,42,109,0.15), rgba(138,43,226,0.15));
-      opacity:0; transition:opacity .6s;
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(135deg, rgba(255,42,109,0.2), rgba(138,43,226,0.2));
+      opacity:0; transition:opacity .8s;
     }
     .feature-card:hover::before { opacity:1; }
     .feature-card:hover {
-      transform:translateY(-30px) scale(1.05);
+      transform:translateY(-40px) scale(1.08);
       box-shadow: var(--glow-pink);
+      border-color: var(--accent);
     }
     .feature-icon {
-      font-size:6rem;
+      font-size:7rem;
       margin-bottom:30px;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    .final-cta {
-      padding:200px 20px;
-      text-align:center;
+    .feature-card h3 {
+      font-size:2.2rem;
+      margin-bottom:20px;
+      font-weight:700;
     }
-    .final-cta h2 {
-      font-size:5.5rem;
-      margin-bottom:50px;
-      background: linear-gradient(135deg, #ff2a6d, #8a2be2, #00d4ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight:900;
+    .feature-card p {
+      font-size:1.2rem;
+      opacity:0.9;
+      line-height:1.8;
     }
   </style>
 </head>
 <body>
 
+  <!-- Custom Cursor -->
   <div class="cursor" id="cursor"></div>
+  <div class="cursor trail" id="cursor-trail"></div>
+
   <canvas id="bg"></canvas>
 
+  <!-- Hero Section -->
   <section class="hero">
-    <div>
+    <div class="hero-content">
       <h1>Vynix AI</h1>
       <p class="typing"></p>
       <br><br>
-      <button class="cta" onclick="location.href='app.html'">Enter the Future</button>
+      <button class="cta" onclick="location.href='app.html'">Enter the Future Now</button>
     </div>
   </section>
 
+  <!-- Features -->
   <section class="features">
     <div class="container">
-      <h2 class="section-title">Beyond Human Intelligence</h2>
+      <h2 class="section-title">Beyond Imagination</h2>
       <div class="feature-grid">
         <div class="feature-card">
           <div class="feature-icon">smart_toy</div>
-          <h3>Grok-Powered Brain</h3>
-          <p>Unfiltered. Unapologetic. Superhuman reasoning.</p>
+          <h3>Grok-Powered Intelligence</h3>
+          <p>Unfiltered. Unapologetic. The most powerful AI reasoning on Earth.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">auto_awesome</div>
           <h3>Infinite Creation</h3>
-          <p>Generate unlimited art, logos, photos — instantly.</p>
+          <p>Generate unlimited images, logos, art — in any style, instantly.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">record_voice_over</div>
-          <h3>Voice That Understands</h3>
-          <p>Talk naturally. Vynix listens, thinks, speaks back.</p>
+          <h3>Voice That Feels Alive</h3>
+          <p>Talk naturally. Vynix listens, understands, and speaks back — like magic.</p>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="final-cta">
-    <h2>The AI Revolution Starts Here</h2>
-    <button class="cta" onclick="location.href='app.html'">Join Vynix AI – Free Forever</button>
   </section>
 
   <script type="module">
@@ -205,11 +236,14 @@
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Custom Cursor
+    // Custom Cursor with Trail
     const cursor = document.getElementById('cursor');
+    const trail = document.getElementById('cursor-trail');
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
     });
 
     // Three.js Advanced Scene
@@ -219,69 +253,37 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    // Post-processing
     const composer = new EffectComposer(renderer);
-    const renderPass = new RenderPass(scene, camera);
-    composer.addPass(renderPass);
-
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      1.5,    // strength
-      0.4,    // radius
-      0.85    // threshold
-    );
-    composer.addPass(bloomPass);
+    composer.addPass(new RenderPass(scene, camera));
+    const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.6, 0.5, 0.85);
+    composer.addPass(bloom);
 
     // Central Orb
-    const orbGeometry = new THREE.IcosahedronGeometry(6, 2);
-    const orbMaterial = new THREE.MeshBasicMaterial({
-      color: 0xff2a6d,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.3
-    });
-    const orb = new THREE.Mesh(orbGeometry, orbMaterial);
+    const orbGeo = new THREE.IcosahedronGeometry(7, 3);
+    const orbMat = new THREE.MeshBasicMaterial({ color: 0xff2a6d, wireframe: true, transparent: true, opacity: 0.4 });
+    const orb = new THREE.Mesh(orbGeo, orbMat);
     scene.add(orb);
 
     // Particle Field
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 5000;
-    const posArray = new Float32Array(particlesCount * 3);
-    const colorArray = new Float32Array(particlesCount * 3);
-
-    for(let i = 0; i < particlesCount * 3; i += 3) {
-      const radius = 15 + Math.random() * 30;
+    const particles = new THREE.BufferGeometry();
+    const count = 8000;
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count * 3; i += 3) {
+      const r = 20 + Math.random() * 40;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI;
-
-      posArray[i]     = radius * Math.sin(phi) * Math.cos(theta);
-      posArray[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
-      posArray[i + 2] = radius * Math.cos(phi);
-
-      const color = new THREE.Color();
-      color.setHSL(0.9 + Math.random() * 0.1, 1, 0.7);
-      colorArray[i]     = color.r;
-      colorArray[i + 1] = color.g;
-      colorArray[i + 2] = color.b;
+      pos[i]   = r * Math.sin(phi) * Math.cos(theta);
+      pos[i+1] = r * Math.sin(phi) * Math.sin(theta);
+      pos[i+2] = r * Math.cos(phi);
     }
+    particles.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const particleMat = new THREE.PointsMaterial({ size: 0.06, color: 0xff2a6d, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+    const stars = new THREE.Points(particles, particleMat);
+    scene.add(stars);
 
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+    camera.position.z = 30;
 
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.05,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      transparent: true,
-      opacity: 0.8
-    });
-
-    const particleField = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particleField);
-
-    camera.position.z = 25;
-
-    // Mouse interaction
+    // Mouse parallax
     let mouseX = 0, mouseY = 0;
     document.addEventListener('mousemove', e => {
       mouseX = (e.clientX / window.innerWidth) * 2 - 1;
@@ -290,22 +292,11 @@
 
     function animate() {
       requestAnimationFrame(animate);
-
-      orb.rotation.y += 0.005;
-      orb.rotation.x += 0.003;
-
-      particleField.rotation.y += 0.001;
-      particleField.rotation.x += 0.0005;
-
-      // Parallax effect
-      orb.position.x = mouseX * 3;
-      orb.position.y = mouseY * 3;
-
-      // Color shift on scroll
-      const scrollY = window.scrollY;
-      const hue = (scrollY * 0.0001) % 1;
-      orb.material.color.setHSL(hue, 1, 0.6);
-
+      orb.rotation.y += 0.006;
+      orb.rotation.x += 0.004;
+      stars.rotation.y += 0.001;
+      orb.position.x = mouseX * 5;
+      orb.position.y = mouseY * 5;
       composer.render();
     }
     animate();
@@ -317,20 +308,9 @@
       composer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // GSAP Magic
-    gsap.from(".hero h1", { y: 200, opacity: 0, duration: 2, ease: "power4.out" });
-    gsap.from(".cta", { scale: 0, opacity: 0, duration: 1.5, delay: 1.5, ease: "elastic.out(1,0.5)" });
-
-    gsap.utils.toArray(".feature-card").forEach((card, i) => {
-      gsap.from(card, {
-        y: 200,
-        opacity: 0,
-        duration: 1.5,
-        delay: i * 0.3,
-        ease: "power4.out",
-        scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" }
-      });
-    });
+    // GSAP Hero Animation
+    gsap.from(".hero h1", { y: 300, opacity: 0, duration: 2.5, ease: "power4.out" });
+    gsap.from(".cta", { scale: 0, opacity: 0, duration: 2, delay: 2, ease: "elastic.out(1,0.4)" });
 
     // Typing Effect
     const text = "Chat • Create • Speak to the future of AI — powered by Grok";
@@ -338,16 +318,13 @@
     let i = 0;
     function type() {
       if (i < text.length) {
-        if (text.charAt(i) === '•') {
-          el.innerHTML += `<span style="color:var(--accent);font-size:1.5em"> • </span>`;
-        } else {
-          el.innerHTML += text.charAt(i);
-        }
+        if (text[i] === '•') el.innerHTML += `<span style="color:var(--accent);font-size:2em"> • </span>`;
+        else el.innerHTML += text[i];
         i++;
-        setTimeout(type, 70);
+        setTimeout(type, 80);
       }
     }
-    setTimeout(type, 2000);
+    setTimeout(type, 2500);
   </script>
 </body>
 </html>
