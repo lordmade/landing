@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Vynix AI – Universal Intelligence</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     :root {
@@ -17,6 +17,7 @@
       --glow-cyan: 0 0 80px rgba(0,245,255,0.6);
       --glow-pink: 0 0 80px rgba(255,42,109,0.6);
       --text: #e0f2fe;
+      --card-bg: rgba(0, 20, 40, 0.5);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
@@ -31,26 +32,17 @@
     /* Galactic Cursor */
     .cursor {
       position: fixed;
-      width: 24px; height: 24px;
+      width: 20px; height: 20px;
       border: 2px solid var(--accent);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0,245,255,0.3) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(0,245,255,0.3), transparent 70%);
       box-shadow: var(--glow-cyan);
-      transition: all 0.08s ease;
-    }
-    .cursor::after {
-      content: ''; position: absolute;
-      top: 50%; left: 50%;
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
     }
 
-    /* Hero – Universal Scale */
+    /* Hero */
     .hero {
       height: 100vh;
       display: flex;
@@ -59,146 +51,105 @@
       position: relative;
       z-index: 2;
       text-align: center;
-    }
-    .hero-content {
-      max-width: 1400px;
       padding: 0 20px;
     }
     .hero h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: clamp(5rem, 18vw, 16rem);
+      font-size: clamp(4.5rem, 14vw, 14rem);
       font-weight: 900;
-      line-height: 0.85;
-      letter-spacing: -0.05em;
-      background: linear-gradient(135deg, #00f5ff, #8a2be2, #ff2a6d, #00d4ff);
+      line-height: 0.9;
+      background: linear-gradient(135deg, #00f5ff, #8a2be2, #ff2a6d);
       background-size: 400%;
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: cosmicFlow 12s ease infinite;
-      text-shadow: 0 0 120px rgba(0,245,255,0.4);
+      animation: cosmicFlow 10s ease infinite;
     }
-    @keyframes cosmicFlow {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
+    @keyframes cosmicFlow { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
     .hero .subtitle {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       font-weight: 300;
-      margin: 40px 0 70px;
+      margin: 30px 0 60px;
       opacity: 0.9;
-      letter-spacing: 2px;
-      background: linear-gradient(90deg, #00f5ff, #ffffff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      letter-spacing: 3px;
     }
     .cta {
       background: linear-gradient(135deg, var(--accent), #8a2be2);
       color: white;
-      padding: 24px 80px;
+      padding: 20px 70px;
       border: none;
-      border-radius: 80px;
-      font-size: 1.8rem;
+      border-radius: 70px;
+      font-size: 1.6rem;
       font-weight: 800;
       font-family: 'Orbitron', sans-serif;
       cursor: pointer;
       box-shadow: var(--glow-cyan);
       transition: all 0.5s;
-      letter-spacing: 3px;
-      position: relative;
-      overflow: hidden;
     }
-    .cta::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transform: translateX(-100%);
-      transition: transform 0.7s;
-    }
-    .cta:hover::before { transform: translateX(100%); }
-    .cta:hover {
-      transform: scale(1.15);
-      box-shadow: 0 0 150px rgba(0,245,255,0.9);
-    }
+    .cta:hover { transform: scale(1.12); box-shadow: 0 0 120px rgba(0,245,255,0.9); }
 
-    /* Feature Cards – Galactic Panels */
-    .features {
-      padding: 250px 20px;
-      position: relative;
-      z-index: 2;
-    }
-    .container { max-width: 1600px; margin: 0 auto; }
+    /* Sections */
+    .section { padding: 180px 20px; position: relative; z-index: 2; }
+    .container { max-width: 1400px; margin: 0 auto; }
     .section-title {
       text-align: center;
       font-family: 'Orbitron', sans-serif;
-      font-size: 6rem;
-      margin-bottom: 180px;
-      background: linear-gradient(135deg, #00f5ff, #8a2be2, #ff2a6d);
+      font-size: 5rem;
+      margin-bottom: 120px;
+      background: linear-gradient(135deg, #00f5ff, #8a2be2);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: 900;
-      letter-spacing: 4px;
     }
-    .feature-grid {
+
+    /* Compact Cards with Icons */
+    .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 80px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
     }
-    .feature-card {
-      background: rgba(0, 20, 40, 0.4);
-      padding: 80px 60px;
-      border-radius: 40px;
+    .card {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 24px;
       text-align: center;
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(16px);
       border: 1px solid rgba(0,245,255,0.2);
-      transition: all 0.8s;
-      position: relative;
-      overflow: hidden;
+      transition: all 0.6s;
     }
-    .feature-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at center, rgba(0,245,255,0.15), transparent 70%);
-      opacity: 0;
-      transition: opacity 0.8s;
-    }
-    .feature-card:hover::before { opacity: 1; }
-    .feature-card:hover {
-      transform: translateY(-50px) scale(1.08);
-      border-color: var(--accent);
+    .card:hover {
+      transform: translateY(-20px);
       box-shadow: var(--glow-cyan);
+      border-color: var(--accent);
     }
-    .feature-icon {
-      font-size: 8rem;
-      margin-bottom: 40px;
+    .card-icon {
+      font-size: 4.5rem;
+      margin-bottom: 20px;
       background: linear-gradient(135deg, var(--accent), #8a2be2);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .feature-card h3 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      margin-bottom: 24px;
+    .card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 16px;
       font-weight: 700;
     }
-    .feature-card p {
-      font-size: 1.3rem;
+    .card p {
+      font-size: 1.1rem;
       opacity: 0.9;
-      line-height: 1.9;
+      line-height: 1.7;
     }
 
     /* Final CTA */
     .final-cta {
-      padding: 300px 20px;
+      padding: 250px 20px;
       text-align: center;
-      background: linear-gradient(to bottom, #001d3d, #000814);
     }
     .final-cta h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 7rem;
+      font-size: 6.5rem;
       margin-bottom: 80px;
       background: linear-gradient(135deg, #00f5ff, #ff2a6d, #8a2be2);
       -webkit-background-clip: text;
@@ -213,39 +164,98 @@
   <div class="cursor" id="cursor"></div>
   <canvas id="bg"></canvas>
 
-  <!-- HERO – Universal Intelligence -->
+  <!-- HERO -->
   <section class="hero">
-    <div class="hero-content">
+    <div>
       <h1>VYNIX AI</h1>
-      <p class="subtitle">Universal Intelligence Has Arrived</p>
+      <p class="subtitle">Universal Intelligence • Powered by Grok</p>
       <button class="cta" onclick="location.href='app.html'">ACCESS THE CORE</button>
     </div>
   </section>
 
-  <!-- Features – Galactic Scale -->
-  <section class="features">
+  <!-- Section 1: Core Features -->
+  <section class="section">
     <div class="container">
-      <h2 class="section-title">COSMIC CAPABILITIES</h2>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon">public</div>
-          <h3>Grok Core</h3>
-          <p>Powered by xAI's Grok-4 — the most advanced reasoning engine in existence.</p>
+      <h2 class="section-title">COSMIC INTELLIGENCE</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">smart_toy</div>
+          <h3>Grok-4 Brain</h3>
+          <p>The most powerful reasoning engine ever built by xAI.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">auto_awesome</div>
+        <div class="card">
+          <div class="card-icon">auto_awesome</div>
           <h3>Infinite Creation</h3>
-          <p>Generate unlimited images, art, and visions across all dimensions of reality.</p>
+          <p>Generate unlimited images, art, and visions instantly.</p>
         </div>
-        <div class="feature-card">
-          <div class="feature-icon">hub</div>
+        <div class="card">
+          <div class="card-icon">record_voice_over</div>
           <h3>Neural Voice</h3>
-          <p>Converse naturally — Vynix hears, thinks, and responds like a conscious being.</p>
+          <p>Speak naturally — Vynix listens and responds like a conscious being.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">verified</div>
+          <h3>Verified Unlimited</h3>
+          <p>Verified users get infinite tokens and priority access.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Section 2: Technology Stack -->
+  <section class="section" style="background: linear-gradient(to bottom, var(--deep), var(--bg));">
+    <div class="container">
+      <h2 class="section-title">BUILT ON THE FUTURE</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">hub</div>
+          <h3>xAI Grok API</h3>
+          <p>Direct access to Grok-4 — the frontier of AI intelligence.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">cloud_queue</div>
+          <h3>Firebase Backend</h3>
+          <p>Secure, real-time, global-scale infrastructure.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">offline_bolt</div>
+          <h3>Instant Response</h3>
+          <p>Sub-100ms latency with optimized edge routing.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">security</div>
+          <h3>Privacy First</h3>
+          <p>No data training. Your conversations stay yours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Join the Revolution -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">JOIN THE REVOLUTION</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">groups</div>
+          <h3>10,000+ Creators</h3>
+          <p>Artists, developers, and thinkers already using Vynix.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">trending_up</div>
+          <h3>Growing Fast</h3>
+          <p>Fastest-growing AI platform in Africa and beyond.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">south_africa</div>
+          <h3>Made for Africa</h3>
+          <p>Optimized for mobile, low data, and local relevance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
   <section class="final-cta">
     <h2>THE FUTURE IS NOW</h2>
     <button class="cta" onclick="location.href='app.html'">ENTER VYNIX AI</button>
@@ -261,14 +271,13 @@
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Galactic Cursor
-    const cursor = document.getElementById('cursor');
+    // Cursor
     document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
+      document.getElementById('cursor').style.left = e.clientX + 'px';
+      document.getElementById('cursor').style.top = e.clientY + 'px';
     });
 
-    // Three.js – Cosmic Nebula Background
+    // Three.js Cosmic Background
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true, antialias: true });
@@ -277,68 +286,37 @@
 
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
-    const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 2.0, 0.6, 0.8);
+    const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.8, 0.6, 0.8);
     composer.addPass(bloom);
 
-    // Central Nexus
-    const nexusGeo = new THREE.TorusKnotGeometry(8, 2, 128, 16);
-    const nexusMat = new THREE.MeshBasicMaterial({ color: 0x00f5ff, wireframe: true, transparent: true, opacity: 0.6 });
-    const nexus = new THREE.Mesh(nexusGeo, nexusMat);
-    scene.add(nexus);
+    const core = new THREE.Mesh(
+      new THREE.TorusKnotGeometry(7, 2.5, 128, 16),
+      new THREE.MeshBasicMaterial({ color: 0x00f5ff, wireframe: true, transparent: true, opacity: 0.5 })
+    );
+    scene.add(core);
 
-    // Cosmic Particles
     const particles = new THREE.BufferGeometry();
-    const count = 12000;
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
-
+    const count = 10000;
+    const pos = new Float32Array(count * 3);
     for (let i = 0; i < count * 3; i += 3) {
-      const radius = 30 + Math.random() * 80;
+      const r = 30 + Math.random() * 70;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
-
-      positions[i]   = radius * Math.sin(phi) * Math.cos(theta);
-      positions[i+1] = radius * Math.sin(phi) * Math.sin(theta);
-      positions[i+2] = radius * Math.cos(phi);
-
-      const color = new THREE.Color();
-      color.setHSL(0.5 + Math.random() * 0.2, 1, 0.7);
-      colors[i]   = color.r;
-      colors[i+1] = color.g;
-      colors[i+2] = color.b;
+      pos[i]   = r * Math.sin(phi) * Math.cos(theta);
+      pos[i+1] = r * Math.sin(phi) * Math.sin(theta);
+      pos[i+2] = r * Math.cos(phi);
     }
-
-    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-    const particleMat = new THREE.PointsMaterial({
-      size: 0.08,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      transparent: true
-    });
-
-    const cosmos = new THREE.Points(particles, particleMat);
-    scene.add(cosmos);
+    particles.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const stars = new THREE.Points(particles, new THREE.PointsMaterial({ size: 0.07, color: 0x00f5ff, transparent: true }));
+    scene.add(stars);
 
     camera.position.z = 50;
 
-    // Mouse parallax
-    let mouseX = 0, mouseY = 0;
-    document.addEventListener('mousemove', e => {
-      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-    });
-
     function animate() {
       requestAnimationFrame(animate);
-      nexus.rotation.x += 0.005;
-      nexus.rotation.y += 0.008;
-      cosmos.rotation.y += 0.0005;
-
-      nexus.position.x = mouseX * 8;
-      nexus.position.y = mouseY * 8;
-
+      core.rotation.x += 0.006;
+      core.rotation.y += 0.009;
+      stars.rotation.y += 0.0008;
       composer.render();
     }
     animate();
@@ -350,19 +328,19 @@
       composer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // GSAP Cosmic Animations
-    gsap.from(".hero h1", { y: 400, opacity: 0, duration: 3, ease: "power4.out" });
-    gsap.from(".subtitle", { opacity: 0, duration: 2, delay: 2 });
-    gsap.from(".cta", { scale: 0, opacity: 0, duration: 2.5, delay: 3, ease: "elastic.out(1,0.4)" });
+    // GSAP
+    gsap.from(".hero h1", { y: 300, opacity: 0, duration: 2.5, ease: "power4.out" });
+    gsap.from(".subtitle", { opacity: 0, duration: 2, delay: 1.5 });
+    gsap.from(".cta", { scale: 0, opacity: 0, duration: 2, delay: 2.5, ease: "elastic.out(1,0.4)" });
 
-    gsap.utils.toArray(".feature-card").forEach((card, i) => {
+    gsap.utils.toArray(".card").forEach((card, i) => {
       gsap.from(card, {
-        y: 300,
+        y: 200,
         opacity: 0,
-        duration: 2,
-        delay: i * 0.4,
-        ease: "power4.out",
-        scrollTrigger: { trigger: card, start: "top 80%" }
+        duration: 1.5,
+        delay: i * 0.15,
+        ease: "power3.out",
+        scrollTrigger: { trigger: card, start: "top 85%" }
       });
     });
   </script>
