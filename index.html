@@ -1,232 +1,248 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vynix AI — The Cosmic Grok Experience</title>
-  <meta name="description" content="Uncensored Grok-4 + Image + Voice. The most beautiful AI app in the universe."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Vynix AI — Galactic Intelligence</title>
+  <meta name="description" content="The most beautiful, professional Grok experience. Chat, create images, and speak — powered by xAI." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/three@0.157.0/build/three.min.js"></script>
-  <script src="https://unpkg.com/three@0.157.0/examples/js/postprocessing/EffectComposer.js"></script>
-  <script src="https://unpkg.com/three@0.157.0/examples/js/postprocessing/RenderPass.js"></script>
-  <script src="https://unpkg.com/three@0.157.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
 
   <style>
-    :root { --accent: #ff2a6d; --accent2: #8b5cf6; }
-    body { margin:0; overflow-x:hidden; font-family:'Inter',sans-serif; background:#000; color:#e2e8f0; }
-    .font-display { font-family:'Space Grotesk',sans-serif; }
-    .gradient-text { background:linear-gradient(90deg,#ff2a6d,#ff6b9d,#8b5cf6,#ff2a6d); -webkit-background-clip:text; background-clip:text; color:transparent; background-size:300%; animation:shine 8s linear infinite; }
-    @keyframes shine { to { background-position:300%; } }
-    .glow { box-shadow:0 0 60px rgba(255,42,109,0.6); }
-    .btn-cosmic {
-      background:linear-gradient(45deg,#ff2a6d,#8b5cf6);
-      background-size:400%;
-      animation:gradient 6s ease infinite;
-      box-shadow:0 0 40px rgba(255,42,109,0.5);
-      transition:all 0.4s;
+    :root {
+      --galaxy: #5e43f3;
+      --nebula: #ff2a6d;
+      --star: #e0e7ff;
+      --bg: #fafbff;
+      --card: rgba(255,255,255,0.75);
+      --text: #1e1b4b;
+      --text-light: #6366f1;
     }
-    .btn-cosmic:hover { transform:translateY(-10px) scale(1.08); box-shadow:0 0 80px rgba(255,42,109,0.8); }
-    @keyframes gradient { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
-    #cosmic-bg { position:fixed; inset:0; z-index:-2; }
-    .star { position:absolute; background:#fff; border-radius:50%; opacity:0.8; pointer-events:none; }
-    .nebula { position:absolute; border-radius:50%; filter:blur(80px); opacity:0.4; pointer-events:none; }
-    .phone-mockup { transition:all 0.8s cubic-bezier(0.175,0.885,0.32,1.275); }
-    .phone-mockup:hover { transform:translateY(-30px) scale(1.1) rotateY(0deg) !important; z-index:50; }
-    .sound-bar { width:6px; background:linear-gradient(to top,#ff2a6d,#8b5cf6); border-radius:3px; animation:soundwave 1.8s ease-in-out infinite; }
-    @keyframes soundwave { 0%,100%{transform:scaleY(0.3);opacity:0.6} 50%{transform:scaleY(1);opacity:1} }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .galaxy-gradient { background: linear-gradient(135deg, #5e43f3 0%, #a78bfa 50%, #ff6b9d 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .btn-galaxy {
+      background: linear-gradient(90deg, #5e43f3, #ff2a6d);
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(94,67,243,0.3);
+    }
+    .btn-galaxy:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 20px 50px rgba(94,67,243,0.5); }
+    #galaxy-bg { position: fixed; inset: 0; z-index: -10; pointer-events: none; }
+    .star { position: absolute; background: var(--star); border-radius: 50%; box-shadow: 0 0 8px #fff; animation: twinkle 4s infinite; }
+    @keyframes twinkle { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+    .nebula-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.25;
+      pointer-events: none;
+      animation: float 20s infinite ease-in-out;
+    }
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(94,67,243,0.15);
+      border-radius: 28px;
+      transition: all 0.6s ease;
+    }
+    .card:hover { transform: translateY(-20px); box-shadow: 0 30px 80px rgba(94,67,243,0.2); }
+    .phone {
+      transition: all 0.8s cubic-bezier(0.175,0.885,0.32,1.275);
+    }
+    .phone:hover { transform: translateY(-30px) scale(1.08); }
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-40px) rotate(3deg); }
+    }
   </style>
 </head>
-<body class="relative min-h-screen">
+<body class="relative">
 
-  <!-- COSMIC BACKGROUND -->
-  <div id="cosmic-bg"></div>
+  <!-- Galactic Background -->
+  <div id="galaxy-bg"></div>
 
   <!-- Hero -->
-  <section class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-    <div class="relative z-10 text-center max-w-7xl mx-auto">
+  <section class="relative min-h-screen flex items-center justify-center px-6 pt-20">
+    <div class="text-center max-w-5xl mx-auto z-10">
       <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold font-display leading-tight">
-        VYNIX<span class="gradient-text glow-text">AI</span>
+        Vynix <span class="galaxy-gradient">AI</span>
       </h1>
-      <p class="text-2xl md:text-4xl mt-6 text-gray-300">The most powerful, beautiful, uncensored Grok experience in the universe</p>
-      <p class="text-xl md:text-2xl mt-8 text-gray-400">Grok-4 • Grok-2-Image • Real-time Voice • Zero Limits</p>
+      <p class="text-2xl md:text-4xl mt-6 text-indigo-900 font-light">
+        The professional galactic interface for xAI’s Grok
+      </p>
+      <p class="text-xl md:text-2xl mt-8 text-indigo-700 max-w-3xl mx-auto">
+        Chat • Image Generation • Voice — powered by Grok-4 & Grok-2-Image<br>
+        Clean. Fast. Unlimited for verified users.
+      </p>
 
-      <div class="mt-12 flex flex-col sm:flex-row gap-8 justify-center">
-        <a href="app.html" class="btn-cosmic text-white text-2xl px-16 py-7 rounded-3xl font-bold glow">
-          Launch Vynix AI Now
+      <div class="mt-12 flex flex-col sm:flex-row gap-6 justify-center">
+        <a href="app.html" class="btn-galaxy text-white text-2xl px-16 py-6 rounded-2xl font-semibold shadow-2xl">
+          Open Vynix AI
         </a>
-        <a href="#motion" class="border-2 border-white/30 backdrop-blur-xl px-12 py-7 rounded-3xl text-xl hover:bg-white/10 transition">
-          See the Magic
+        <a href="#features" class="border-2 border-indigo-500 text-indigo-700 px-12 py-6 rounded-2xl text-xl backdrop-blur bg-white/50 hover:bg-white/80 transition">
+          Explore Features
         </a>
       </div>
 
-      <div class="grid grid-cols-3 gap-12 mt-20 max-w-4xl mx-auto text-center">
-        <div><div class="text-5xl font-bold">15K</div><div class="text-gray-400">Free Tokens</div></div>
-        <div><div class="text-5xl font-bold">Unlimited</div><div class="text-gray-400">Verified Users</div></div>
-        <div><div class="text-5xl font-bold">Instant</div><div class="text-gray-400">No Wait</div></div>
+      <div class="grid grid-cols-3 gap-12 mt-20 max-w-4xl mx-auto">
+        <div class="text-center"><div class="text-5xl font-bold text-indigo-900">15,000</div><div class="text-indigo-600">Free Monthly Tokens</div></div>
+        <div class="text-center"><div class="text-5xl font-bold text-indigo-900">Unlimited</div><div class="text-indigo-600">Verified Users</div></div>
+        <div class="text-center"><div class="text-5xl font-bold text-indigo-900">Instant</div><div class="text-indigo-600">No Waitlist</div></div>
       </div>
-    </div>
-
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-      <svg class="w-12 h-12 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
     </div>
   </section>
 
-  <!-- COSMIC IN MOTION SECTION -->
-  <section id="motion" class="py-32 px-6 relative">
-    <h2 class="text-6xl md:text-8xl font-bold text-center mb-32 font-display">
-      Looks Even Better <span class="gradient-text">In Motion</span>
+  <!-- Features – Professional Galactic Cards -->
+  <section id="features" class="py-32 px-6">
+    <h2 class="text-5xl md:text-7xl font-bold text-center mb-20 font-display">
+      Built for the Future
     </h2>
 
-    <div class="grid md:grid-cols-3 gap-12 max-w-7xl mx-auto relative z-10" id="phones">
-      <!-- Phone 1 -->
-      <div class="phone-mockup floating" style="animation:float 8s ease-in-out infinite;">
-        <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-pink-500/40 bg-gradient-to-br from-purple-900/30 to-black">
-          <img src="https://i.ibb.co/9hR6Z3k/vynix-chat.webp" alt="Chat" class="w-full block"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-          <div class="absolute bottom-8 left-8 text-white">
-            <div class="text-4xl font-bold">Lightning Chat</div>
-            <div class="text-pink-400 text-xl">Grok-4 • 0.3s response</div>
-          </div>
-        </div>
+    <div class="grid lg:grid-cols-3 gap-12 max-w-7xl mx-auto">
+      <div class="card p-10 text-center floating" style="animation-delay:0s">
+        <div class="w-24 h-24 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-5xl font-bold">Chat</div>
+        <h3 class="text-3xl font-bold mb-4">Lightning Chat</h3>
+        <p class="text-indigo-700 leading-relaxed">Grok-4-1-fast — the fastest Grok model available. Instant responses, no delays.</p>
       </div>
 
-      <!-- Phone 2 — CENTER HERO -->
-      <div class="phone-mockup scale-110 md:scale-125 floating" style="animation:float 8s ease-in-out infinite 2s;">
-        <div class="relative rounded-3xl overflow-hidden shadow-2xl ring-8 ring-pink-500/50 border border-pink-500 bg-black">
-          <img src="https://i.ibb.co/3hLfYSn/vynix-image-gen.webp" alt="Image Gen" class="w-full block"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-purple-900/90 via-transparent to-transparent"></div>
-          <div class="absolute top-6 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-5 py-2 rounded-full text-lg font-bold animate-pulse">
-            LIVE GENERATION
-          </div>
-          <div class="absolute bottom-8 left-8 text-white">
-            <div class="text-4xl font-bold">Stunning Images</div>
-            <div class="text-pink-400 text-xl">1024×1024 • Uncensored</div>
-          </div>
-        </div>
+      <div class="card p-10 text-center floating scale-110" style="animation-delay:0.2s">
+        <div class="w-24 h-24 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-pink-500 to-indigo-600 flex items-center justify-center text-white text-5xl font-bold">Image</div>
+        <h3 class="text-3xl font-bold mb-4">Stunning Images</h3>
+        <p class="text-indigo-700 leading-relaxed">Grok-2-Image-1212 creates 1024×1024 uncensored art in seconds.</p>
       </div>
 
-      <!-- Phone 3 -->
-      <div class="phone-mockup floating" style="animation:float 8s ease-in-out infinite 4s;">
-        <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-pink-500/40">
-          <img src="https://i.ibb.co/4pY7K6v/vynix-voice.webp" alt="Voice" class="w-full block"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-          <div class="absolute bottom-1/3 left-1/2 -translate-x-1/2 flex gap-2">
-            <div class="sound-bar h-8"></div>
-            <div class="sound-bar h-16" style="animation-delay:0.1s"></div>
-            <div class="sound-bar h-12" style="animation-delay:0.2s"></div>
-            <div class="sound-bar h-20" style="animation-delay:0.3s"></div>
-            <div class="sound-bar h-14" style="animation-delay:0.4s"></div>
-          </div>
-          <div class="absolute bottom-8 left-8 text-white">
-            <div class="text-4xl font-bold">Talk Naturally</div>
-            <div class="text-pink-400 text-xl">Real-time Voice</div>
-          </div>
+      <div class="card p-10 text-center floating" style="animation-delay:0.4s">
+        <div class="w-24 h-24 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-white text-5xl font-bold">Mic</div>
+        <h3 class="text-3xl font-bold mb-4">Natural Voice</h3>
+        <p class="text-indigo-700 leading-relaxed">Real-time speech-to-text and response — talk like a human.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- In Motion – Galactic Phones -->
+  <section class="py-32 px-6 bg-gradient-to-b from-transparent to-indigo-50/30">
+    <h2 class="text-5xl md:text-7xl font-bold text-center mb-20 font-display">
+      Designed for <span class="galaxy-gradient">Excellence</span>
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-16 max-w-7xl mx-auto" id="phones">
+      <div class="phone text-center">
+        <img src="https://i.ibb.co/9hR6Z3k/vynix-chat.webp" alt="Chat" class="rounded-3xl shadow-2xl border border-indigo-200 mx-auto max-w-xs" />
+        <p class="mt-6 text-xl font-medium text-indigo-900">Instant Chat Experience</p>
+      </div>
+      <div class="phone text-center scale-110">
+        <div class="relative inline-block">
+          <img src="https://i.ibb.co/3hLfYSn/vynix-image-gen.webp" alt="Image" class="rounded-3xl shadow-2xl border-4 border-indigo-400 mx-auto max-w-sm" />
+          <div class="absolute -top-4 -right-4 bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold animate-pulse">LIVE</div>
         </div>
+        <p class="mt-6 text-xl font-medium text-indigo-900">Professional Image Generation</p>
+      </div>
+      <div class="phone text-center">
+        <img src="https://i.ibb.co/4pY7K6v/vynix-voice.webp" alt="Voice" class="rounded-3xl shadow-2xl border border-indigo-200 mx-auto max-w-xs" />
+        <p class="mt-6 text-xl font-medium text-indigo-900">Natural Voice Interface</p>
       </div>
     </div>
 
-    <div class="text-center mt-32">
-      <a href="app.html" class="btn-cosmic text-white text-3xl px-20 py-9 rounded-3xl font-bold glow inline-block">
-        Enter the Cosmos — Launch Vynix AI
+    <div class="text-center mt-20">
+      <a href="app.html" class="btn-galaxy text-white text-3xl px-20 py-8 rounded-3xl font-bold inline-block">
+        Launch Vynix AI Now
       </a>
-      <p class="mt-8 text-2xl text-gray-400">Zero ads • Instant access • Verified = Unlimited forever</p>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section class="py-40 text-center relative">
-    <h2 class="text-6xl md:text-8xl font-bold font-display mb-12">
-      Ready to Go <span class="gradient-text">Beyond</span>?
+  <section class="py-40 text-center">
+    <h2 class="text-5xl md:text-7xl font-bold font-display mb-8">
+      Join the <span class="galaxy-gradient">Next Frontier</span>
     </h2>
-    <a href="app.html" class="btn-cosmic text-4xl px-24 py-10 rounded-3xl font-bold glow inline-block animate-pulse">
-      Open Vynix AI — It's Free
+    <p class="text-2xl text-indigo-800 mb-12 max-w-3xl mx-auto">
+      No ads • No waitlist • Unlimited for verified users
+    </p>
+    <a href="app.html" class="btn-galaxy text-white text-3xl px-24 py-9 rounded-3xl font-bold shadow-2xl animate-pulse">
+      Open Vynix AI — Free
     </a>
   </section>
 
-  <!-- Cosmic Background Script -->
+  <!-- Galactic Background Script -->
   <script>
-    // Three.js Cosmic Background
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    document.getElementById('cosmic-bg').appendChild(renderer.domElement);
+    renderer.setPixelRatio(window.devicePixelRatio * 1.5);
+    document.getElementById('galaxy-bg').appendChild(renderer.domElement);
 
-    // Bloom
-    const composer = new THREE.EffectComposer(renderer);
-    const renderPass = new THREE.RenderPass(scene, camera);
-    composer.addPass(renderPass);
-    const bloomPass = new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
-    bloomPass.threshold = 0;
-    bloomPass.strength = 2.2;
-    bloomPass.radius = 1;
-    composer.addPass(bloomPass);
-
-    camera.position.z = 5;
+    camera.position.z = 4;
 
     // Stars
-    const starsGeometry = new THREE.BufferGeometry();
-    const starsCount = 8000;
-    const posArray = new Float32Array(starsCount * 3);
-    for(let i = 0; i < starsCount * 3; i++) {
-      posArray[i] = (Math.random() - 0.5) * 2000;
+    const starsGeo = new THREE.BufferGeometry();
+    const starsCount = 10000;
+    const pos = new Float32Array(starsCount * 3);
+    for (let i = 0; i < starsCount * 3; i += 3) {
+      const radius = 30;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      pos[i]     = radius * Math.sin(phi) * Math.cos(theta);
+      pos[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      pos[i + 2] = radius * Math.cos(phi);
     }
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const starsMaterial = new THREE.PointsMaterial({ size: 1.5, color: 0xffffff, transparent: true, opacity: 0.9 });
-    const starField = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(starField);
+    starsGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const stars = new THREE.Points(starsGeo, new THREE.PointsMaterial({ size: 0.8, color: 0xe0e7ff, transparent: true }));
+    scene.add(stars);
 
-    // Nebula clouds
-    for(let i = 0; i < 6; i++) {
-      const nebula = document.createElement('div');
-      nebula.className = 'nebula';
-      nebula.style.width = Math.random() * 600 + 400 + 'px';
-      nebula.style.height = nebula.style.width;
-      nebula.style.background = `radial-gradient(circle, ${i%2===0?'#ff2a6d':'#8b5cf6'}44, transparent 70%)`;
-      nebula.style.left = Math.random() * 100 + '%';
-      nebula.style.top = Math.random() * 100 + '%';
-      nebula.style.transform = `translate(-50%,-50%) scale(${Math.random() * 0.8 + 0.5})`;
-      nebula.style.animation = `float ${20+i*5}s ease-in-out infinite`;
-      document.body.appendChild(nebula);
-    }
+    // Soft nebula blobs
+    const colors = ['#5e43f3', '#a78bfa', '#ff6b9d', '#818cf8'];
+    colors.forEach(color => {
+      const blob = document.createElement('div');
+      blob.className = 'nebula-blob';
+      blob.style.background = color;
+      blob.style.width = blob.style.height = (Math.random() * 600 + 400) + 'px';
+      blob.style.left = Math.random() * 100 + '%';
+      blob.style.top = Math.random() * 100 + '%';
+      blob.style.animationDelay = Math.random() * 10 + 's';
+      document.body.appendChild(blob);
+    });
 
     function animate() {
       requestAnimationFrame(animate);
-      starField.rotation.y += 0.0001;
-      composer.render();
+      stars.rotation.y += 0.00008;
+      renderer.render(scene, camera);
     }
-    animate();
-
     animate();
 
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      composer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // GSAP Animations
+    // GSAP scroll animations
     gsap.registerPlugin(ScrollTrigger);
-    gsap.to("#phones .phone-mockup", {
-      y: -150,
-      rotationY: 20,
-      ease: "none",
-      scrollTrigger: { trigger: "#phones", start: "top bottom", end: "bottom top", scrub: 1.5 }
+    gsap.utils.toArray(".floating").forEach(el => {
+      gsap.to(el, {
+        y: -60,
+        rotation: 3,
+        ease: "none",
+        scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 20%", scrub: true }
+      });
+    });
+    gsap.to("#phones .phone").forEach((el, i) => {
+      gsap.from(el, {
+        opacity: 0, y: 100, duration: 1.2, delay: i*0.2,
+        scrollTrigger: { trigger: el, start: "top 85%" }
+      });
     });
   </script>
-
-  <style>
-    @keyframes float {
-      0%,100% { transform:translateY(0) rotate(0deg); }
-      50% { transform:translateY(-40px) rotate(2deg); }
-    }
-    .floating { animation:float 8s ease-in-out infinite; }
-  </style>
 </body>
 </html>
