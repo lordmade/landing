@@ -5,30 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Vynix AI – Chat, Create, Speak</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Vynix AI – The Future Is Here</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --text: #ffffff;
+      --bg: #000000;
       --accent: #ff2a6d;
       --accent-2: #8a2be2;
-      --card: rgba(255,255,255,0.05);
-      --glow: 0 0 40px rgba(255,42,109,0.4);
-      --glow-purple: 0 0 40px rgba(138,43,226,0.4);
+      --glow-pink: 0 0 60px rgba(255,42,109,0.6);
+      --glow-purple: 0 0 60px rgba(138,43,226,0.6);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { 
       font-family: 'Inter', sans-serif; 
-      background: var(--bg); 
-      color: var(--text); 
+      background: #000; 
+      color: #fff; 
       overflow-x: hidden;
-      min-height: 100vh;
+      cursor: none;
     }
-    canvas { position:fixed; top:0; left:0; z-index:1; pointer-events:none; }
-    
-    /* Hero */
+    canvas { position:fixed; top:0; left:0; z-index:1; }
+    .cursor {
+      position: fixed;
+      width: 20px; height: 20px;
+      background: rgba(255,42,109,0.4);
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      backdrop-filter: blur(4px);
+      transition: transform 0.1s;
+    }
+
     .hero {
       height:100vh; 
       display:flex; 
@@ -40,117 +49,113 @@
       padding:0 20px;
     }
     .hero h1 {
-      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-size: clamp(4rem, 12vw, 10rem);
       font-weight:900;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      background: linear-gradient(135deg, #ff2a6d, #8a2be2, #00d4ff);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom:20px;
-      line-height:1;
+      line-height:0.9;
+      text-shadow: 0 0 80px rgba(255,42,109,0.5);
     }
     .hero p {
-      font-size:1.5rem;
+      font-size:1.8rem;
       max-width:900px;
-      margin:30px auto 50px;
+      margin:40px auto 60px;
       opacity:0.9;
       line-height:1.7;
       font-weight:300;
     }
     .cta {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
       color:white;
-      padding:20px 50px;
+      padding:22px 60px;
       border:none;
       border-radius:60px;
-      font-size:1.3rem;
-      font-weight:700;
+      font-size:1.5rem;
+      font-weight:800;
       cursor:pointer;
-      box-shadow: var(--glow);
+      box-shadow: var(--glow-pink);
       transition:all .4s;
       letter-spacing:1px;
-    }
-    .cta:hover { 
-      transform:scale(1.08); 
-      box-shadow:0 0 60px rgba(255,42,109,0.7);
-    }
-
-    /* Features */
-    .features {
-      padding:180px 20px 100px;
-      background: linear-gradient(to bottom, #0a0a0a, #1a0033);
       position:relative;
-      z-index:2;
+      overflow:hidden;
     }
-    .container { max-width:1200px; margin:0 auto; }
+    .cta::before {
+      content:''; position:absolute; top:0; left:-100%;
+      width:100%; height:100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: all 0.7s;
+    }
+    .cta:hover::before { left:100%; }
+    .cta:hover { transform:scale(1.1); box-shadow:0 0 80px rgba(255,42,109,0.8); }
+
+    .features { padding:200px 20px 150px; position:relative; z-index:2; }
+    .container { max-width:1300px; margin:0 auto; }
     .section-title {
       text-align:center;
-      font-size:4rem;
-      margin-bottom:100px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-size:5rem;
+      margin-bottom:120px;
+      background: linear-gradient(135deg, #ff2a6d, #8a2be2, #00d4ff);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-weight:800;
+      font-weight:900;
+      text-shadow: 0 0 60px rgba(255,42,109,0.4);
     }
     .feature-grid {
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
-      gap:50px;
+      grid-template-columns: repeat(auto-fit, minmax(340px,1fr));
+      gap:60px;
     }
     .feature-card {
-      background:var(--card);
-      padding:50px 30px;
-      border-radius:24px;
+      background: rgba(255,255,255,0.03);
+      padding:60px 40px;
+      border-radius:30px;
       text-align:center;
-      backdrop-filter:blur(12px);
-      border:1px solid rgba(255,255,255,0.08);
-      transition:all .5s;
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.1);
+      transition:all .6s;
       position:relative;
       overflow:hidden;
     }
     .feature-card::before {
-      content:'';
-      position:absolute;
-      top:0; left:0; right:0; bottom:0;
-      background: linear-gradient(135deg, rgba(255,42,109,0.1), rgba(138,43,226,0.1));
-      opacity:0;
-      transition:opacity .5s;
+      content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+      background: linear-gradient(135deg, rgba(255,42,109,0.15), rgba(138,43,226,0.15));
+      opacity:0; transition:opacity .6s;
     }
     .feature-card:hover::before { opacity:1; }
     .feature-card:hover {
-      transform:translateY(-25px);
-      box-shadow:var(--glow);
+      transform:translateY(-30px) scale(1.05);
+      box-shadow: var(--glow-pink);
     }
     .feature-icon {
-      font-size:5rem;
-      margin-bottom:25px;
+      font-size:6rem;
+      margin-bottom:30px;
       background: linear-gradient(135deg, var(--accent), var(--accent-2));
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .feature-card h3 { font-size:1.8rem; margin-bottom:16px; }
-    .feature-card p { opacity:0.8; line-height:1.7; }
 
-    /* Final CTA */
     .final-cta {
-      padding:180px 20px;
+      padding:200px 20px;
       text-align:center;
-      background: linear-gradient(to bottom, #1a0033, var(--bg));
     }
     .final-cta h2 {
-      font-size:4.5rem;
-      margin-bottom:40px;
-      background: linear-gradient(135deg, var(--accent), #00d4ff);
+      font-size:5.5rem;
+      margin-bottom:50px;
+      background: linear-gradient(135deg, #ff2a6d, #8a2be2, #00d4ff);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
+      font-weight:900;
     }
   </style>
 </head>
 <body>
 
+  <div class="cursor" id="cursor"></div>
   <canvas id="bg"></canvas>
 
   <section class="hero">
@@ -158,74 +163,150 @@
       <h1>Vynix AI</h1>
       <p class="typing"></p>
       <br><br>
-      <button class="cta" onclick="location.href='app.html'">Start Creating Free</button>
+      <button class="cta" onclick="location.href='app.html'">Enter the Future</button>
     </div>
   </section>
 
   <section class="features">
     <div class="container">
-      <h2 class="section-title">One AI. All You Need.</h2>
+      <h2 class="section-title">Beyond Human Intelligence</h2>
       <div class="feature-grid">
         <div class="feature-card">
-          <div class="feature-icon">chat_bubble</div>
-          <h3>Smart Chat</h3>
-          <p>Ask anything — get instant, honest, uncensored answers powered by Grok 4.</p>
+          <div class="feature-icon">smart_toy</div>
+          <h3>Grok-Powered Brain</h3>
+          <p>Unfiltered. Unapologetic. Superhuman reasoning.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">auto_awesome</div>
-          <h3>Generate Images</h3>
-          <p>Turn words into stunning AI art — unlimited for verified users.</p>
+          <h3>Infinite Creation</h3>
+          <p>Generate unlimited art, logos, photos — instantly.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">mic</div>
-          <h3>Voice to Voice</h3>
-          <p>Talk naturally. Vynix listens, understands, and speaks back — like magic.</p>
+          <div class="feature-icon">record_voice_over</div>
+          <h3>Voice That Understands</h3>
+          <p>Talk naturally. Vynix listens, thinks, speaks back.</p>
         </div>
       </div>
     </div>
   </section>
 
   <section class="final-cta">
-    <h2>Join thousands already creating with Vynix AI</h2>
-    <button class="cta" onclick="location.href='app.html'">Get Started Now – It's Free</button>
+    <h2>The AI Revolution Starts Here</h2>
+    <button class="cta" onclick="location.href='app.html'">Join Vynix AI – Free Forever</button>
   </section>
 
-  <!-- All via ESM imports (no npm needed) -->
   <script type="module">
     import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js";
     import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js";
     import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js";
+    import { EffectComposer } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/postprocessing/EffectComposer.js";
+    import { RenderPass } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/postprocessing/RenderPass.js";
+    import { UnrealBloomPass } from "https://cdn.jsdelivr.net/npm/three@0.157.0/examples/jsm/postprocessing/UnrealBloomPass.js";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Three.js Floating Orb Background
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Three.js Advanced Scene
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    const geometry = new THREE.IcosahedronGeometry(8, 1);
-    const material = new THREE.MeshBasicMaterial({
+    // Post-processing
+    const composer = new EffectComposer(renderer);
+    const renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
+
+    const bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(window.innerWidth, window.innerHeight),
+      1.5,    // strength
+      0.4,    // radius
+      0.85    // threshold
+    );
+    composer.addPass(bloomPass);
+
+    // Central Orb
+    const orbGeometry = new THREE.IcosahedronGeometry(6, 2);
+    const orbMaterial = new THREE.MeshBasicMaterial({
       color: 0xff2a6d,
       wireframe: true,
       transparent: true,
-      opacity: 0.15
+      opacity: 0.3
     });
-    const orb = new THREE.Mesh(geometry, material);
+    const orb = new THREE.Mesh(orbGeometry, orbMaterial);
     scene.add(orb);
 
-    const light = new THREE.PointLight(0xff2a6d, 2);
-    light.position.set(10, 10, 10);
-    scene.add(light);
+    // Particle Field
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 5000;
+    const posArray = new Float32Array(particlesCount * 3);
+    const colorArray = new Float32Array(particlesCount * 3);
 
-    camera.position.z = 20;
+    for(let i = 0; i < particlesCount * 3; i += 3) {
+      const radius = 15 + Math.random() * 30;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.random() * Math.PI;
+
+      posArray[i]     = radius * Math.sin(phi) * Math.cos(theta);
+      posArray[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      posArray[i + 2] = radius * Math.cos(phi);
+
+      const color = new THREE.Color();
+      color.setHSL(0.9 + Math.random() * 0.1, 1, 0.7);
+      colorArray[i]     = color.r;
+      colorArray[i + 1] = color.g;
+      colorArray[i + 2] = color.b;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+      size: 0.05,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
+      transparent: true,
+      opacity: 0.8
+    });
+
+    const particleField = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particleField);
+
+    camera.position.z = 25;
+
+    // Mouse interaction
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', e => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
 
     function animate() {
       requestAnimationFrame(animate);
-      orb.rotation.x += 0.003;
+
       orb.rotation.y += 0.005;
-      renderer.render(scene, camera);
+      orb.rotation.x += 0.003;
+
+      particleField.rotation.y += 0.001;
+      particleField.rotation.x += 0.0005;
+
+      // Parallax effect
+      orb.position.x = mouseX * 3;
+      orb.position.y = mouseY * 3;
+
+      // Color shift on scroll
+      const scrollY = window.scrollY;
+      const hue = (scrollY * 0.0001) % 1;
+      orb.material.color.setHSL(hue, 1, 0.6);
+
+      composer.render();
     }
     animate();
 
@@ -233,39 +314,40 @@
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
     });
 
-    // GSAP Animations
-    gsap.from(".hero h1", { y: 120, opacity: 0, duration: 1.8, ease: "power4.out" });
-    gsap.from(".cta", { scale: 0.7, opacity: 0, duration: 1.5, delay: 1.2, ease: "elastic.out(1,0.5)" });
+    // GSAP Magic
+    gsap.from(".hero h1", { y: 200, opacity: 0, duration: 2, ease: "power4.out" });
+    gsap.from(".cta", { scale: 0, opacity: 0, duration: 1.5, delay: 1.5, ease: "elastic.out(1,0.5)" });
 
     gsap.utils.toArray(".feature-card").forEach((card, i) => {
       gsap.from(card, {
-        y: 150,
+        y: 200,
         opacity: 0,
-        duration: 1.2,
-        delay: i * 0.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 85%",
-          toggleActions: "play none none reverse"
-        }
+        duration: 1.5,
+        delay: i * 0.3,
+        ease: "power4.out",
+        scrollTrigger: { trigger: card, start: "top 80%", toggleActions: "play none none reverse" }
       });
     });
 
     // Typing Effect
     const text = "Chat • Create • Speak to the future of AI — powered by Grok";
-    const typingEl = document.querySelector('.typing');
+    const el = document.querySelector('.typing');
     let i = 0;
     function type() {
       if (i < text.length) {
-        typingEl.innerHTML += text.charAt(i) === '•' ? '<span style="color:var(--accent)"> • </span>' : text.charAt(i);
+        if (text.charAt(i) === '•') {
+          el.innerHTML += `<span style="color:var(--accent);font-size:1.5em"> • </span>`;
+        } else {
+          el.innerHTML += text.charAt(i);
+        }
         i++;
-        setTimeout(type, 60);
+        setTimeout(type, 70);
       }
     }
-    setTimeout(type, 1500);
+    setTimeout(type, 2000);
   </script>
 </body>
 </html>
